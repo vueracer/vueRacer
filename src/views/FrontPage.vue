@@ -26,7 +26,7 @@ export default {
     methods : {
         login(){
             console.log('login button')
-            // this.$store.dispatch('login')
+            this.$store.dispatch('login')
         }
     }
 }
