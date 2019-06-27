@@ -19,21 +19,6 @@ export default new Vuex.Store({
     room: '',
     playerName: ''
   },
-    isLogin : '',
-    userName : '',
-    game: [
-        {
-          name: '',
-          position: 0
-        },
-        {
-          name: '',
-          position: 0
-        }
-      ],
-      room: '',
-      playerName: ''
-  },
   mutations: {
     setIsLogin(state,data){
       state.isLogin = data
