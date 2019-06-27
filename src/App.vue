@@ -1,28 +1,22 @@
 <template>
   <div id="app">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" integrity="sha256-gVCm5mRCmW9kVgsSjQ7/5TLtXqvfCoxhdsjE6O1QLm8=" crossorigin="anonymous" />
-    <!-- <Navbar/> -->
+    
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <i class="fab fa-vuejs"></i> -->
     <!-- <Game msg="Welcome to Your Vue.js App"/> -->
-    <frontpage/>
-    <!-- <room/> -->
+    
   </div>
 </template>
 
 <script>
+
 import Game from './components/Game.vue'
-import Navbar from './components/NavBar.vue'
-import frontpage from './components/FrontPage.vue'
-import room from './components/Room.vue'
 
 export default {
   name: 'app',
   components: {
     Game,
-    Navbar,
-    frontpage,
-    room
   }
 }
 </script>
