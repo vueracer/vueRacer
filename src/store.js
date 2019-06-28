@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
-
+import Router from '@/router.js'
 
 Vue.use(Vuex)
 
@@ -55,6 +55,7 @@ export default new Vuex.Store({
           localStorage.setItem('userName', user.displayName)
           context.commit('setIsLogin', true)
           context.commit('setUserName')
+          Router.push('/')
         })
         .catch((error) => {
           var errorCode = error.code
