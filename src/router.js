@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import Home from './views/Home.vue'
 import Home from './views/Room.vue'
 import LoginPage from './views/FrontPage.vue'
+import Game from '@/components/Game.vue'
 
 Vue.use(Router)
 
@@ -26,7 +27,13 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component : LoginPage
+      component: LoginPage
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Game,
+      props: true
     }
   ]
 })

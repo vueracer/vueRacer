@@ -165,8 +165,10 @@ export default {
           username: localStorage.getItem("userName")
         }
       };
-
-      var setWithMerge = cityRef.set(fieldBaru, { merge: true });
+      this.$router.push({name: 'game', params: {roomName: roomName, userName: localStorage.getItem('userName')}})
+      var setWithMerge = cityRef.set(obj, { merge: true })
+        .then(() => console.log('ok'))
+        .catch(err => console.log(err))
     }
   }
 };

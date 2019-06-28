@@ -13,7 +13,7 @@
       <br/>
     </div>
     <div v-else>
-      <GamePage :room="roomGame" :username="username" />
+      <GamePage :room="$route.params.roomName" :username="$route.params.username" />
     </div>
   </div>
 </template>
@@ -21,16 +21,16 @@
 <script>
 import db from '@/firebase/firebase'
 import GamePage from '@/components/gamePage.vue'
+import { debuglog } from 'util';
 
 const CPS = 800
 export default {
   components: {
     GamePage
   },
+  props: ['username', 'roomGame'],
   data () {
     return {
-      roomGame: '',
-      username: '',
       room: '',
       password: ''
     }
@@ -73,6 +73,7 @@ export default {
   },
   created() {
     let rooms = []
+    debugger
     let collections = db.collection('rooms')
       .get().then(res => {
         let keys = res.forEach((el) => {
