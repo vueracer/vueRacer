@@ -14,7 +14,7 @@
                         <br>
 
                         <h4><b> RECENT ROOM </b></h4>
-                        <li>test room</li>
+                        <a href=""><li>test room</li></a>
                         
                         
                     </div>
@@ -73,7 +73,8 @@ export default {
     margin: 10px;
     list-style: none;
 }
-.col{
-    /* border: 1px yellow solid; */
+.col-6 .container a{
+    color: aqua;
+    font-weight: 500; 
 }
 </style>
