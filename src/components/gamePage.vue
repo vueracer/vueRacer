@@ -1,7 +1,7 @@
 <template>
   <div @click="race" class="main-game" style="width: 100%; height: 1080px">
     <div> 
-      <h4 v-if="game && game.raceStatus === 'deployed'">Click anywhere id you're ready!</h4>
+      <h4 v-if="game && game.raceStatus === 'deployed'">Click anywhere if you're ready!</h4>
       <h4 v-if="game && game.raceStatus === 'started'">Click anywhere on the screen</h4>
       <Player v-for="(p, i) in players" 
         :key="i" 
@@ -48,6 +48,7 @@ export default {
   created() {
     let self = this
     let docGame = db.collection('rooms').doc(this.room)
+    let isStarted = false 
     this.fblistener = docGame.onSnapshot(docSnapshot => {
       var array = Object.keys(docSnapshot.data())
       var search_term = 'raceStatus'
@@ -58,9 +59,19 @@ export default {
       }
       self.urutanPlayer = array
       self.game = docSnapshot.data()
-      if (self.game && self.game[self.username] && self.game[self.username].ready && self.game.raceStatus === 'deployed') {
-        self.startRace()
-      } 
+      let allPlayerReady = self.urutanPlayer.reduce((acc, e) => {
+        return acc && self.game[e].ready
+      }, true)
+
+      if (allPlayerReady && self.urutanPlayer.length >= 2) {
+        db.collection('rooms')
+          .doc(this.room)
+          .update({raceStatus:'started'})
+        if (!isStarted) {
+          this.startRace() 
+          isStarted = true
+        }
+      }
     }, err => {
       console.log(`Encountered error: ${err}`)
     })
@@ -91,35 +102,28 @@ export default {
       db.collection('rooms')
         .doc(this.room)
         .update(update)
-        // .then(() => console.log('ok'))
-        // .catch(err => console.log(err))
     },
     race () {
-      // debugger
       if (this.game && this.game[this.username] && this.game[this.username].ready) {
         ++this.tempClick
-      } else if (this.game.raceStatus === 'deployed'){
-        this.startRace()
+      } else {
+        this.ready()
       }
     },
     ready () {
-      
-    },
-    startRace () {
       let update = { 
-        [`${this.username}.ready`]: true,
-        raceStatus: 'started', 
+        [`${this.username}.ready`]: true
       }
       db.collection('rooms')
         .doc(this.room)
         .update(update)
-        .then(() => {
-          this.interval = setInterval(() => {
-            this.clickRate = this.tempClick
-            this.tempClick = 0
-            this.countPosition()
-          }, CPS)
-        })
+    },
+    startRace () {
+      this.interval = setInterval(() => {
+        this.clickRate = this.tempClick
+        this.tempClick = 0
+        this.countPosition()
+      }, CPS)
     }
   }
 }
