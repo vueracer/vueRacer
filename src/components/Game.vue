@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%; height: 100%">
-    <div v-if="roomGame === false">
+    <div v-if="roomGame === ''">
       <label for="name">rooms : </label>
       <input v-model="room" type="text">
       <label for="username"> username</label>
@@ -12,7 +12,7 @@
       <br/>
     </div>
     <div v-else>
-      <GamePage :room="'test'" :username="'test'" />
+      <GamePage :room="roomGame" :username="username" />
     </div>
   </div>
 </template>
