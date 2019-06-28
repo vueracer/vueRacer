@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import firebase from 'firebase'
+import firebase from 'firebase'
+
 
 Vue.use(Vuex)
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
   },
   actions: {
     login(context){
+      console.log('masuk login store')
       var firebaseConfig = {
         apiKey: "AIzaSyDdvY_4TKwp1Dj5YjqBdOwbFf_vjJbBEuk",
         authDomain: "vueracer.firebaseapp.com",
@@ -38,13 +40,18 @@ export default new Vuex.Store({
         messagingSenderId: "491999247786",
         appId: "1:491999247786:web:66d2ac4255679a57"
       };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      // // Initialize Firebase
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+      // firebase.initializeApp(firebaseConfig);
 
       let provider = new firebase.auth.GoogleAuthProvider
 
       firebase.auth().signInWithPopup(provider)
       .then(result =>{
+        console.log('masuk then');
+        
         let token = result.credential.accessToken
 
         localStorage.setItem('token' , token)
@@ -54,12 +61,13 @@ export default new Vuex.Store({
         context.commit('setIsLogin',true)
         context.commit('setUserName', )
       })
-      .catch(err =>{
-        var errorCode = error.code;
-        var errorMessage = error.message
-        var email = error.email
-        var credential = error.credential
-        console.log('errorCode: ' ,errorCode,', error message : ', errorMessage);
+      .catch(error =>{
+      console.log(error);
+        // var errorCode = error.code;
+        // var errorMessage = error.message
+        // var email = error.email
+        // var credential = error.credential
+        // console.log('errorCode: ' ,errorCode,', error message : ', errorMessage);
         
       })
     }

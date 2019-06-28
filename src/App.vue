@@ -5,7 +5,7 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <i class="fab fa-vuejs"></i> -->
     <!-- <Game msg="Welcome to Your Vue.js App"/> -->
-    
+    <router-view/>
   </div>
 </template>
 
