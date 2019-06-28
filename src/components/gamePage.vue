@@ -96,7 +96,7 @@ export default {
       if (pos > 0 && pos < 100) {
         update = { [`${this.username}.position`]: pos + velocity }
       } else if (pos >= 100) {
-        update.raceStatus = 'finished'
+        update = { raceStatus: 'finished'}
       } else {
         update = {}
       }
