@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+  <div id="app" style="width: 100%; height: 100%">
     <Game msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
@@ -17,6 +16,10 @@ export default {
 </script>
 
 <style>
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
