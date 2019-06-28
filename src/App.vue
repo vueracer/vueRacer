@@ -5,12 +5,13 @@
 </template>
 
 <script>
+
 import Game from './components/Game.vue'
 
 export default {
   name: 'app',
   components: {
-    Game
+    Game,
   }
 }
 </script>
@@ -26,6 +27,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* background-image: url('https://thumbs.gfycat.com/PinkPiercingBull-size_restricted.gif'); */
+  /* background-size: contain;
+  background-repeat:no-repeat; */
+  height: 100vh;
 }
+
+
 </style>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import firebase from 'firebase'
+import firebase from 'firebase'
+
 
 Vue.use(Vuex)
 
@@ -39,7 +40,6 @@ export default new Vuex.Store({
         appId: '1:491999247786:web:66d2ac4255679a57'
       }
       // Initialize Firebase
-      debugger
       firebase.initializeApp(firebaseConfig)
 
       let provider = new firebase.auth.GoogleAuthProvider()
