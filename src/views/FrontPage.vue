@@ -27,6 +27,7 @@ export default {
         login(){
             console.log('login button')
             this.$store.dispatch('login')
+            
         }
     }
 }
