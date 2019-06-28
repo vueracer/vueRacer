@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #front {
   height: 100vh;
   /* background-color: black; */

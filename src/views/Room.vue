@@ -4,10 +4,11 @@
             <div class="row">
                 <div class="col-6">
                     <div class="container">
-                        <div class="col">
-                            <button>
-                                Create Room
-                            </button>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-info">CREATE ROOM</button>
+                                <button type="button" class="btn btn-info" @click="logout">LOGOUT</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,10 +42,14 @@ export default {
             arrTemp.push({id : doc.id, ...doc.data()})
         });
         this.rooms = arrTemp
-        console.log(JSON.stringify(this.rooms,null,2));
-        
+            console.log(JSON.stringify(this.rooms,null,2));
         })
-  }
+    },
+    methods : {
+        logout(){
+            localStorage.clear()
+        }
+    }
 }
 </script>
 
