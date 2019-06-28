@@ -3,6 +3,7 @@
     <div> 
       <h4 v-if="game && game.raceStatus === 'deployed'">Click anywhere if you're ready!</h4>
       <h4 v-if="game && game.raceStatus === 'started'">Click anywhere on the screen</h4>
+      <h4 v-if="game && game.raceStatus === 'finished'">Game Over</h4>
       <Player v-for="(p, i) in players" 
         :key="i" 
         :action='p.action' 
@@ -17,6 +18,7 @@
 import db from '@/firebase/firebase'
 import Player from '@/components/Player.vue'
 import { finished } from 'stream';
+import { clearInterval } from 'timers';
 
 const CPS = 800
 export default {
@@ -63,7 +65,7 @@ export default {
         return acc && self.game[e].ready
       }, true)
 
-      if (allPlayerReady && self.urutanPlayer.length >= 2) {
+      if (allPlayerReady && self.urutanPlayer.length >= 2 && self.game.raceStatus === 'deployed') {
         db.collection('rooms')
           .doc(this.room)
           .update({raceStatus:'started'})
@@ -97,6 +99,18 @@ export default {
         update.raceStatus = 'finished'
       } else {
         update = {}
+      }
+
+      let allPlayerDie = this.urutanPlayer.reduce((acc, e) => {
+        return acc && this.game[e].position <= 0
+      }, true)
+
+      if (allPlayerDie) {
+        update.raceStatus = 'finished'
+      }
+
+      if (this.game.raceStatus === 'finished') {
+        clearInterval(this.interval)
       }
        
       db.collection('rooms')
