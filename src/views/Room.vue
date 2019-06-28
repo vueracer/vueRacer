@@ -165,7 +165,7 @@ export default {
           username: localStorage.getItem("userName")
         }
       };
-      this.$router.push({name: 'game', params: {roomName: roomName, userName: localStorage.getItem('userName')}})
+      this.$router.push({name: 'game', params: {roomName: roomName, username: localStorage.getItem('userName')}})
       var setWithMerge = cityRef.set(obj, { merge: true })
         .then(() => console.log('ok'))
         .catch(err => console.log(err))
