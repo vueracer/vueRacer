@@ -5,18 +5,17 @@
                 <div class="col-6">
                     <div class="container">
                         <div class="col">
-
+                            <button>
+                                Create Room
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="container">
                         <br>
-
-                        <h4><b> RECENT ROOM </b></h4>
-                        <a href=""><li>test room</li></a>
-                        
-                        
+                        <h4><b> ALL ROOM(S) </b></h4>
+                        <a v-for="(room, i) in rooms" :key="i" href=""><li>{{room.id}}</li></a>
                     </div>
                 </div>
             </div>
@@ -25,8 +24,27 @@
 </template>
 
 <script>
-export default {
 
+import db from '../firebase/firebase'
+
+export default {
+    data(){
+        return {
+            rooms : []
+        }
+    },
+    mounted(){
+    // console.log('coba play music');
+        db.collection('rooms').onSnapshot((querySnapshot)=>{
+        let arrTemp = []
+        querySnapshot.forEach(doc => {
+            arrTemp.push({id : doc.id, ...doc.data()})
+        });
+        this.rooms = arrTemp
+        console.log(JSON.stringify(this.rooms,null,2));
+        
+        })
+  }
 }
 </script>
 
@@ -39,10 +57,6 @@ export default {
     height: 100vh;
     background-image: url("https://cdn2.alphr.com/sites/alphr/files/2018/09/xbox_one_keyboard_and_mouse_support.jpg");
     background-size:cover;
-}
-.container-fluid{
-    
-    /* border: 1px red solid; */
 }
 .row {
     
