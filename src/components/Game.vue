@@ -7,7 +7,8 @@
       <input v-model="username" type="text">
       <label for="password"> password</label>
       <input v-model="password" type="password">
-      <button @click="createRoom" type="submit">input</button>
+      <button @click="createRoom" type="submit">create</button>
+      <button @click="joinRoom" type="submit">join</button>
       <br/>
       <br/>
     </div>
@@ -36,7 +37,6 @@ export default {
   },
   methods: {
     createRoom () {
-      let collections = db.collection('room').get()
       let obj = {
         raceStatus: 'deployed',
         [this.username]: {
@@ -53,6 +53,21 @@ export default {
         })
         .catch(err => {
           console.log('error writing document', err)
+        })
+    },
+    joinRoom() {
+      let newPlayer = {
+        [this.username]: {
+          username: this.username,
+          position: 20,
+          ready: false,
+          action: 'start'
+        }
+      }
+      db.collection('rooms').doc(this.room)
+        .set(newPlayer, { merge: true})
+        .then(() => {
+          this.roomGame = this.room
         })
     }
   },
